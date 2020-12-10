@@ -101,3 +101,37 @@ a:hover {
 .project-header-paragraph {
     opacity: 0.7;
 }
+
+.modalCard {
+    width: 10em; 
+    height: 4em; 
+    margin-right: 1em; 
+    cursor: pointer;
+}
+
+
+@keyframes increaseSize {
+    0% {
+        width: 10em; height: 4em;
+    }
+
+    100%  {
+        width: 15em; height: 10em;
+    }
+}
+
+.videoCard {
+    width: 15em; 
+    height: 10em; 
+    margin-right: 1.5em;
+    cursor: pointer;
+}
+
+.videoActive {
+    height: 13em; 
+}
+
+.modalActive {
+  width: 13em; 
+  height: 6em;
+}

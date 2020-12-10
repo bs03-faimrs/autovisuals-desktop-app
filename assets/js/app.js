@@ -6,16 +6,23 @@ const newFolderItem = document.querySelector('#newFolderItem')
 const folderForm = document.querySelector('.projectContainer__contentLeft__form')
 const folderFormInput = document.querySelector('#folderFormInput')
 const projectFolderList = document.querySelector('.projectFolder__list')
+const modalCardList = document.querySelector('.modalCard__list')
+const videoFormTitle = document.querySelector('#title')
 
 loadEventListeners()
 
 function loadEventListeners () {
-    navList.addEventListener('click', onTabClick)
     document.addEventListener('DOMContentLoaded', getVideos)
     document.addEventListener('DOMContentLoaded', getFolders)
+    document.addEventListener('DOMContentLoaded', getStyles)
+    document.addEventListener('DOMContentLoaded', getTitle)
+    videoContainerList.addEventListener('click', onVideoClick)
+    navList.addEventListener('click', onTabClick)
+    modalCardList.addEventListener('click', onCardClick)
     videoContainerCard.addEventListener('click', addVideo)
     newFolderItem.addEventListener('click', newFolder)
     folderForm.addEventListener('submit', folderSubmitHandler)
+    videoFormTitle.addEventListener('keyup', videoTitle)
 }
 
 function onTabClick (e) {
@@ -30,7 +37,59 @@ function onTabClick (e) {
     e.target.parentElement.className += ' active';
     document.getElementById(e.target.href.split('#')[1]).className += ' active';
 }
+
+function onCardClick (e) {
+    let activeCards = document.querySelectorAll('.modalCard')
+    
+    activeCards.forEach( function (card) {
+        card.className = card.className.replace('modalActive', '')
+    })
+
+    e.target.className += ' modalActive'
+    
+    storeStyleIdInLocalStorage(e.target.id)
+}
+
+function storeStyleIdInLocalStorage (style) {
+
+    localStorage.setItem('styleId', JSON.stringify(style))
+}
+
+function getStyles() {
+    style = "Whiteboard"
+    if(localStorage.getItem('styleId') === null){
+        localStorage.setItem('styleId', JSON.stringify(style))
+    } else {
+        styles = JSON.parse(localStorage.getItem('styleId'))
+    }
+
+}
+
+function getTitle() {
+    if(localStorage.getItem('videoTitle') === null){
+        localStorage.setItem('videoTitle', JSON.stringify(style))
+    } else {
+        styles = JSON.parse(localStorage.getItem('videoTitle'))
+    }
+}
+
+
+function onVideoClick (e) {
+    let activeCards = document.querySelectorAll('.videoCard')
+    activeCards.forEach( function (card) {
+        card.className = card.className.replace('videoActive', '')
+    })
+
+    e.target.parentElement.parentElement.className += ' videoActive'
+}
   
+function videoTitle (e) {
+    storeVideoTitleInLocalStorage(e.target.value)
+}
+
+function storeVideoTitleInLocalStorage (videoTitle){
+    localStorage.setItem('videoTitle', videoTitle)
+}
 
 function getVideos() {
     let videos
@@ -42,16 +101,30 @@ function getVideos() {
 
     videos.forEach(function (video) {
         const li = document.createElement('li')
+        const cardDiv = document.createElement('div')
+        const cardBodyDiv = document.createElement('div')
+        
         li.className = 'videoContainer__list__item'
-        li.innerHTML = '<div class="card" style="width: 10em; height: 10em; margin-right: 1.5em;"></div>'
+        cardDiv.className = 'card videoCard'
+        cardBodyDiv.className = 'card-body text-center mt-5'
+        cardBodyDiv.innerHTML = '<p>Sample Video</p>'
+        cardDiv.appendChild(cardBodyDiv)
+        li.appendChild(cardDiv)
         videoContainerList.appendChild(li)
     })
 }
 
 function addVideo (e) {
     const li = document.createElement('li')
+    const cardDiv = document.createElement('div')
+    const cardBodyDiv = document.createElement('div')
+
     li.className = 'videoContainer__list__item'
-    li.innerHTML = '<div class="card" style="width: 10em; height: 10em; margin-right: 1.5em;"></div>'
+    cardDiv.className = 'card videoCard'
+    cardBodyDiv.className = 'card-body text-center mt-5'
+    cardBodyDiv.innerHTML = '<p>Sample Video</p>'
+    cardDiv.appendChild(cardBodyDiv)
+    li.appendChild(cardDiv)
     videoContainerList.appendChild(li)
 
     storeVideoInLocalStorage(li)
