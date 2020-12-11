@@ -8,6 +8,8 @@ const folderFormInput = document.querySelector('#folderFormInput')
 const projectFolderList = document.querySelector('.projectFolder__list')
 const modalCardList = document.querySelector('.modalCard__list')
 const videoFormTitle = document.querySelector('#title')
+const videoTableBody = document.querySelectorAll('.videoTableBody')
+
 
 loadEventListeners()
 
@@ -66,10 +68,11 @@ function getStyles() {
 }
 
 function getTitle() {
+    let titles
     if(localStorage.getItem('videoTitle') === null){
-        localStorage.setItem('videoTitle', JSON.stringify(style))
+        titles = []
     } else {
-        styles = JSON.parse(localStorage.getItem('videoTitle'))
+        titles = localStorage.getItem('videoTitle')
     }
 }
 
@@ -115,20 +118,28 @@ function getVideos() {
 }
 
 function addVideo (e) {
-    const li = document.createElement('li')
-    const cardDiv = document.createElement('div')
-    const cardBodyDiv = document.createElement('div')
+    if(videoFormTitle.value === ''){
+        alert("Provide a title")
 
-    li.className = 'videoContainer__list__item'
-    cardDiv.className = 'card videoCard'
-    cardBodyDiv.className = 'card-body text-center mt-5'
-    cardBodyDiv.innerHTML = '<p>Sample Video</p>'
-    cardDiv.appendChild(cardBodyDiv)
-    li.appendChild(cardDiv)
-    videoContainerList.appendChild(li)
+        // const tr = document.createElement('tr')
+        // videoTableBody[0].appendChild(document.createElement('tr'))
+        // console.log(videoTableBody[0])
+    } else {
+        const li = document.createElement('li')
+        const cardDiv = document.createElement('div')
+        const cardBodyDiv = document.createElement('div')
 
-    storeVideoInLocalStorage(li)
-    videoContainerCard.setAttribute('data-dismiss', 'modal')
+        li.className = 'videoContainer__list__item'
+        cardDiv.className = 'card videoCard'
+        cardBodyDiv.className = 'card-body text-center mt-5'
+        cardBodyDiv.innerHTML = '<p>Sample Video</p>'
+        cardDiv.appendChild(cardBodyDiv)
+        li.appendChild(cardDiv)
+        videoContainerList.appendChild(li)
+
+        storeVideoInLocalStorage(li)
+        videoContainerCard.setAttribute('data-dismiss', 'modal')
+    }
    
 }
 

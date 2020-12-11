@@ -84,9 +84,8 @@ a:hover {
     grid-template-columns: 1fr 4fr;
 }
 
-.projectContainer__contentLeft {
-    border-right: 0.3px solid rgba(0, 0, 0, 0.3);
-    height: 11.4em;
+.projectContainer__contentLeft__form {
+    padding-left: 1em;
 } 
 
 /* .projectContainer__contentRight {
@@ -110,7 +109,7 @@ a:hover {
 }
 
 
-@keyframes increaseSize {
+/* @keyframes increaseSize {
     0% {
         width: 10em; height: 4em;
     }
@@ -118,7 +117,7 @@ a:hover {
     100%  {
         width: 15em; height: 10em;
     }
-}
+} */
 
 .videoCard {
     width: 15em; 
